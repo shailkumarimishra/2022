@@ -1,0 +1,19 @@
+What is Data Structure:-
+
+A data structure is a storage that is used to store and organize data.
+It is a way of arranging data on a computer so that it can be accessed and updated efficiently.
+It is also used for processing, retrieving, and storing data. 
+
+Classification of Data Structure:
+ 
+1. Linear Data-Structures:
+	1.1 Static Data-Structure
+		a)Arrays		
+	1.2 Dynamic Data-Structure
+		a)Queue
+		b)Stack
+		c)Linked List
+2. Non-Linear Data-structures
+	2.1 Tree
+	2.2 Graph
+	
