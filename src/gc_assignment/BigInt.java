@@ -182,6 +182,7 @@ public class BigInt {
 				row=new StringBuilder(row).reverse().toString();
 				count++;
 				result=getMultiple(result,row,count);
+				result.numSigDigits=getNumSigDigits(result.digits);
 			}
 			
 		} catch (ArrayIndexOutOfBoundsException e) {
