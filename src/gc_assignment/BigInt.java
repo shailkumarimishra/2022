@@ -151,6 +151,7 @@ public class BigInt {
 			}
 			sumArr[index] = carry;
 			result.digits = getDigitsArray(sumArr);
+			result.numSigDigits=getNumSigDigits(sumArr);
 		} catch (ArrayIndexOutOfBoundsException e) {
 			throw new ArithmeticException();
 		}
@@ -158,24 +159,57 @@ public class BigInt {
 	}
 
 	public BigInt mul(BigInt other) {
-		// Do it yourself :)
 		
-//		if (digits == null || other == null)
-//			throw new IllegalArgumentException();
+		if (digits == null || other == null)
+			throw new IllegalArgumentException();
 		BigInt result = new BigInt();
-//		int carry = 0;
-//		int msd = getMSDIndex(digits);
-//		int otherMSD = getMSDIndex(other.digits);
-//		int range;
-//		if (msd >= otherMSD)
-//			range = msd;
-//		else
-//			range = otherMSD;
-//		try {
-//
-//		} catch (ArrayIndexOutOfBoundsException e) {
-//			throw new ArithmeticException();
-//		}
+		int carry = 0;
+		int msd = getMSDIndex(digits);
+		int otherMSD = getMSDIndex(other.digits);
+		int count=-1;
+		try {
+			for(int i=other.digits.length-1;i>=otherMSD;i--) {
+				int num=other.digits[i];
+				String row="";
+				for(int j=digits.length-1;j>=msd;j--) {
+					int val=num*digits[j]+carry;
+					carry = findCarry(val);
+					val = findSumValue(val);
+					row=row+val;
+				}
+				if(carry!=0)
+					row=row+carry;
+				row=new StringBuilder(row).reverse().toString();
+				count++;
+				result=getMultiple(result,row,count);
+			}
+			
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new ArithmeticException();
+		}
+		return result;
+	}
+
+	private BigInt getMultiple(BigInt result, String row,int count) {
+		if(result.getNumSigDigits()==1 && count==0) {
+			int range=result.digits.length-row.length();
+			int j=row.length()-1;
+			for(int i=result.digits.length-1;i>=range;i--) {
+				result.digits[i]=Integer.valueOf(Character.toString(row.charAt(j--)));
+			}
+		}else {
+			int i=result.digits.length-1-count;
+			int len=row.length()-1;
+			int carry=0;
+			while(len!=-1) {
+				int num=result.digits[i]+Integer.valueOf(Character.toString(row.charAt(len--)))+carry;
+				carry=findCarry(num);
+				num=findSumValue(num);
+				result.digits[i--]=num;
+			}
+			if(carry!=0)
+				result.digits[i]=carry;
+		}
 		return result;
 	}
 
@@ -314,30 +348,30 @@ public class BigInt {
 		   }
 		   System.out.println();
 		   
-//		   System.out.println("Test 17: result should be 5670"); 
-//		   b1 = new BigInt(135);
-//		   b2 = new BigInt(42); 
-//		   BigInt product = b1.mul(b2);
-//		   System.out.println(product); 
-//		   System.out.println();
+		   System.out.println("Test 17: result should be 5670"); 
+		   b1 = new BigInt(135);
+		   b2 = new BigInt(42); 
+		   BigInt product = b1.mul(b2);
+		   System.out.println(product); 
+		   System.out.println();
 		   
-//		   System.out.println("Test 18: result should be\n99999999999999999999");
-//		   b1 = new BigInt(a20); // 20 nines -- see above 
-//		   b2 = new BigInt(1);
-//		   System.out.println(b1.mul(b2));
-//		   System.out.println();
+		   System.out.println("Test 18: result should be\n99999999999999999999");
+		   b1 = new BigInt(a20); // 20 nines -- see above 
+		   b2 = new BigInt(1);
+		   System.out.println(b1.mul(b2));
+		   System.out.println();
 		   
-//		   System.out.println("Test 19: should throw an ArithmeticException"); 
-//		   try { 
-//			   b1  = new BigInt(a20); 
-//			   b2 = new BigInt(2); 
-//			   System.out.println(b1.mul(b2));
-//		   }
-//		   catch (ArithmeticException e) {
-//			   System.out.println("Test passed."); 
-//		   } catch(Exception e) {
-//			   System.out.println("Test failed: threw wrong type of exception."); 
-//		   }
-//		   System.out.println();
+		   System.out.println("Test 19: should throw an ArithmeticException"); 
+		   try { 
+			   b1  = new BigInt(a20); 
+			   b2 = new BigInt(2); 
+			   System.out.println(b1.mul(b2));
+		   }
+		   catch (ArithmeticException e) {
+			   System.out.println("Test passed."); 
+		   } catch(Exception e) {
+			   System.out.println("Test failed: threw wrong type of exception."); 
+		   }
+		   System.out.println();
 	}
 }
