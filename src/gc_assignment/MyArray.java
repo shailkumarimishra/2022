@@ -67,19 +67,24 @@ public class MyArray  {
 	public void inputElements() {
     	System.out.println("Enter upto 20 integers and -999 to end user input:");
     	Scanner sc=new Scanner(System.in);
-    	while(sc.hasNext()) {
-    		String next = sc.next();
-    		if(next.equals("-999"))
-    			break;
-    		if(numElements<20)
-    			this.arr[numElements++]=Integer.parseInt(next);
-    	}
+    	int i=0;
+		while (true) {
+			String next = sc.nextLine();
+			if (next.equalsIgnoreCase(String.valueOf(SENTINEL)))
+				break;
+			if (i < 20) {
+				this.arr[i] = Integer.parseInt(next);
+				i++;
+			}
+		}
+		sc.close();
+		numElements=i;
     	computeStatistics();
     }
 	
 	public String toString() {
 		String result="";
-		if(isArrayEmpty(arr)) {
+		if(isArrayEmpty(arr)&&numElements==0) {
 			result=result+"["+"]";
 		}else {
 			result=result+"[";
@@ -128,7 +133,7 @@ public class MyArray  {
 		if(!(position>=0 && position<numElements))
 			return false;
 		else {
-			for(int i=position;i<numElements;i++) {
+			for(int i=position;i<numElements-1;i++) {
 				arr[i]=arr[i+1];
 			}
 			numElements--;
@@ -182,23 +187,28 @@ public class MyArray  {
     	if(numElements%2!=0)
     		return temp[numElements/2];
     	else {
-    		int index1=numElements/2;
+    		int index1=(numElements-1)/2;
     		int index2=index1+1;
     		return (temp[index1]+temp[index2])/2;
     	}
 	}
 
 	private int[] getSortedArray(int[] arr) {
-		for(int i=1;i<arr.length;i++) {
+		int[] temp=new int[numElements];
+		
+		for(int i=0;i<numElements;i++)
+			temp[i]=arr[i];
+		
+		for(int i=1;i<temp.length;i++) {
 			int j=i;
-			int a=arr[i];
-			while((j>0)&&arr[j-1]>a) {
-				arr[j]=arr[j-1];
+			int a=temp[i];
+			while((j>0)&&temp[j-1]>a) {
+				temp[j]=temp[j-1];
 				j--;
 			}
-			arr[j]=a;
+			temp[j]=a;
 		}
-		return arr;
+		return temp;
 	}
 
 	private double fetchAvgOfArray(int sum) {
@@ -235,6 +245,37 @@ public class MyArray  {
         System.out.println("\nUnit Test for MyArray.\n");
 
 	// TBA
+//        MyArray array = new MyArray();
+//        array.inputElements();
+//        System.out.println(array.toString());
+//        System.out.println( array.getSum());
+//        array.insert(4, 0);
+//        System.out.println(array.toString());
+//        System.out.println( array.getSum());
+//        System.out.println(array.remove(1));
+//        System.out.println(array.toString());
+//        System.out.println( array.getSum());
+//        MyArray array = new MyArray(6);
+//        array.inputElements();
+//        System.out.println(array.toString());
+//        System.out.println( array.getSum());
+//        array.insert(4, 0);
+//        System.out.println(array.toString());
+//        System.out.println( array.getSum());
+//        System.out.println(array.remove(1));
+//        System.out.println(array.toString());
+//        System.out.println( array.getSum());
+//        MyArray array = new MyArray(new int[] {1,2,3,4,5});
+//        array.inputElements();
+//        System.out.println(array.toString());
+//        System.out.println( array.getSum());
+//        array.insert(4, 0);
+//        System.out.println(array.toString());
+//        System.out.println( array.getSum());
+//        System.out.println(array.remove(1));
+//        System.out.println(array.toString());
+//        System.out.println( array.getSum());
+        
         
     }
 }
