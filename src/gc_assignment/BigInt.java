@@ -78,7 +78,7 @@ public class BigInt {
 			if (!(arr[i] == 0 && arr[i + 1] == 0) || flag)
 				count++;
 		}
-		return count + 1;
+		return count;
 	}
 	
 	public int getNumSigDigits() {
@@ -239,7 +239,8 @@ public class BigInt {
 		 * corresponding methods of the class.
 		 */
 		   System.out.println("Test 1: result should be 7");
-		   int[] a1 = { 1,2,3,4,5,6,7};
+//		   int[] a1 = { 1,2,3,4,5,6,7};
+		   int[] a1 = { 0,0,0,1,0,2,0,3,0,0};
 		   BigInt b1 = new BigInt(a1);
 		   System.out.println(b1.getNumSigDigits());
 		   System.out.println();

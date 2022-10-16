@@ -28,12 +28,46 @@ public class CountSetBits {
 		return count+1;
 	}
 	
+	public static int countBitsApproach3(int num) {
+		int count=0;
+		while(num>0) {
+			if(num%2!=0) {
+				count++;
+			}
+			num=num/2;
+		}
+		return count;
+	}
+	
+	public static int countBitsApproach4(int num) {
+		int count=0;
+		while(num>0) {
+			if((num&1)==1) {
+				count++;
+			}
+			num=num>>1;
+		}
+		return count;
+	}
+	
+	public static int countBitsApproach5(int num) {
+		int count=0;
+		while(num>0) {
+			num=(num & (num-1));
+			count++;
+		}
+		return count;
+	}
+	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int input = sc.nextInt();
 		System.out.println("Decimal "+input+" into Binary= "+Integer.toBinaryString(input));
 		System.out.println(countBitsApproach1(input));
 		System.out.println(countBitsApproach2(input));
+		System.out.println(countBitsApproach3(input));
+		System.out.println(countBitsApproach4(input));
+		System.out.println(countBitsApproach5(input));
 		
 	}
 
