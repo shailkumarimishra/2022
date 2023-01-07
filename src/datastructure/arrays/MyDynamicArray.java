@@ -33,47 +33,55 @@ public class MyDynamicArray {
 	}
 
 	public void addFirst(int data) {
-		int[] temp=null;
 		if (isFull()) {
-			capacity=2*capacity;
-			temp=new int[capacity];
-			temp=copyArray(array,temp);
+			growArray();
 		}
-		for (int i = size - 1; i >= 0; i--) {
-			array[i + 1] = array[i];
-		}
+		rightShiftArrayElements();
 		array[0] = data;
 		size++;
 	}
 
-	private int[] copyArray(int[] array1, int[] temp) {
-		
-		return null;
+	private void rightShiftArrayElements() {
+		for (int i = size - 1; i >= 0; i--) {
+			array[i + 1] = array[i];
+		}
+	}
+
+	private void growArray() {
+		capacity=2*capacity;
+		int[] temp=new int[capacity];
+		for(int i=0;i<array.length;i++)
+			temp[i]=array[i];
+		array=temp;
 	}
 
 	public void addLast(int data) {
 		if (isFull()) {
-			System.out.println("Array is Full !!");
-			return;
+			growArray();
 		}
 		array[size++] = data;
 	}
 
 	public void add(int index, int data) {
-		if (isFull()) {
-			System.out.println("Array is Full !!");
-			return;
+		if (!isValidIndex(index)) {
+			throw new IndexOutOfBoundsException();
 		} else if (index == 0) {
 			addFirst(data);
 		} else if (index == size) {
 			addLast(data);
 		} else {
-			for (int i = size - 1; i >= index; i--) {
-				array[i + 1] = array[i];
+			if(array.length==size)
+				growArray();
+			for (int i = size-1; i > index; i--) {
+				array[i+1] = array[i];
 			}
 			array[index] = data;
 			size++;
 		}
+	}
+
+	private boolean isValidIndex(int index) {
+		return index>=0 && index<=size;
 	}
 
 	public int remove(int data) {
@@ -81,33 +89,33 @@ public class MyDynamicArray {
 			System.out.println("Array is Empty...");
 			return -1;
 		}
-		int index=getIndex(data);
-		int value = array[index];
+		int index=getIndexOf(data);
+		leftShiftArrayElements(index);
+		size--;
+		return data;
+	}
+
+	private void leftShiftArrayElements(int index) {
 		for (int i = index; i < size-1; i++) {
 			array[i]=array[i+1];
 		}
-		size--;
-		return value;
 	}
 	
 	public int removeATIndex(int index) {
 		if (isEmpty()) {
 			System.out.println("Array is Empty...");
 			return -1;
+		}else if(!isValidIndex(index)) {
+			throw new IndexOutOfBoundsException();
 		}
-		int value = array[index];
-		for (int i = index; i < size-1; i++) {
-			array[i]=array[i+1];
-		}
+		leftShiftArrayElements(index);
 		size--;
-		return value;
+		return getValueAt(index);
 	}
 
-	private int getIndex(int data) {
-		int value = 0;
+	public int getIndexOf(int data) {
 		for (int i = 0; i < size; i++) {
-			value = array[i];
-			if (value == data) {
+			if (array[i] == data) {
 				return i;
 			}
 		}
@@ -119,12 +127,11 @@ public class MyDynamicArray {
 			System.out.println("Array is Empty...");
 			return -1;
 		}
-		int value = array[0];
 		for (int i = 0; i < size; i++) {
 			array[i] = array[i + 1];
 		}
 		size--;
-		return value;
+		return array[0];
 	}
 
 	public int removeLast() {
@@ -150,8 +157,13 @@ public class MyDynamicArray {
 	}
 
 	public void display() {
-		for (int i=0;i<size;i++)
-			System.out.print(array[i] + " ");
+		StringBuilder sb = new StringBuilder();
+		for (int i=0;i<size;i++) {
+			sb.append(array[i]);
+			if(i!=size-1)
+				sb.append(",");
+		}
+		System.out.println("["+sb.toString()+"]");
 	}
 
 	private boolean isEmpty() {
@@ -161,4 +173,11 @@ public class MyDynamicArray {
 	private boolean isFull() {
 		return size == capacity;
 	}
+	
+	public int getValueAt(int index) {
+		if(!isValidIndex(index))
+			throw new IndexOutOfBoundsException();
+		return array[index];
+	}
+	
 }
