@@ -48,6 +48,30 @@ public void add(int index,int data) {
 	}
 }
 
+public void deleteByIndex(int index) {
+	if(index>=0 && index<size) {
+		for(int i=index;i<size-1;i++) {
+			this.array[i]=this.array[i+1];
+		}
+		size--;
+	}
+}
+
+public int contains(int data) {
+	for(int i=0;i<size;i++) {
+		if(data==this.array[i])
+			return i;
+	}
+	return -1;
+}
+
+public void deleteByData(int data) {
+	int index=contains(data);
+	if(index!=-1) {
+		deleteByIndex(index);
+	}
+}
+
 public int size() {
 	return size;
 }
