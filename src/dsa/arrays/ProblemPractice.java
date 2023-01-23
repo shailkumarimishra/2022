@@ -78,7 +78,7 @@ public class ProblemPractice {
 		
 //	}
 	
-	//Q5.find leaders in the given array. I/O:- int[] arr={7,10,4,10,6,5,2}; O/P:- 10 6 5 2
+	//Q6.find leaders in the given array. I/O:- int[] arr={7,10,4,10,6,5,2}; O/P:- 10 6 5 2
 		public static String findLeaders(int[] arr) {
 			String leaders="";
 			for(int i=0;i<arr.length-1;i++) {
@@ -117,7 +117,48 @@ public class ProblemPractice {
 			}
 			return result;
 		}
-	
+		
+	//Q7. given array ={2,0,2} represents heights of bar. You have to collect the maximum amount of water b/w the bars.
+		public static int getMaxWater(int[] arr) {
+			int max=0;
+			int start=arr[0];
+			//check if the size of 1st bar is less than or equal to last bar or not.  if not then return 0 else proceed further
+			if(!(start<=arr[arr.length-1]))
+				return 0;
+			
+			for(int i=1;i<arr.length;i++) {
+				//calculate the diff b/w the size of first bar and others. if size is <=zero don't add.
+				int diff= start-arr[i];
+				if(diff>0)
+					max+=diff;
+			}
+			return max;
+		}
+		
+		//Q8. find maximum consecutive 1's in a given binary array? I/P:-int[] arr= {0,1,1,0,1,0} O/P:- {2}
+		public static int getMaxConsecutiveOne(int[] arr) {
+			int[] temp=new int[arr.length];
+			int count=0;
+			
+			for(int i=0,j=0;i<arr.length;i++) {
+				if(arr[i]==0) {
+					temp[j++]=count;
+					count=0;
+				}else
+					count++;
+				if(i==arr.length-1)
+					temp[j]=count;
+			}
+			
+			count=temp[0];
+			for(int i=1;i<temp.length;i++) {
+				if(count<temp[i])
+					count=temp[i];
+			}
+			
+			return count;
+		}
+		
 	public static void main(String[] args) {
 		int[] arr= {10,20,30,40,50,60};
 		int[] result = efficientReverse(arr);
@@ -150,5 +191,12 @@ public class ProblemPractice {
 		System.out.println();
 		for(int i:result7)
 			System.out.print(i+" ");
+		
+		int[] arr7 ={3,0,1,2,5};
+		System.out.println();
+		System.out.println("max water= "+getMaxWater(arr7));
+		
+		int[] arr8= {1,0,1,1,1,1,0,1,1};
+		System.out.println("count of maximum number of 1= "+getMaxConsecutiveOne(arr8));
 	}
 }
