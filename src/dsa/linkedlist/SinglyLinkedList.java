@@ -37,8 +37,32 @@ public void add(int index,int data) {
 	}
 	newNode.next=temp.next;
 	temp.next=newNode;
+}
+
+public void delete(int data) {
 	
+	if(first.data==data) {
+		first=first.next;
+		return;
+	}
 	
+	Node prev = first;
+	Node current = prev;
+	
+	//iterate to find out the position
+	while (current != null) {
+		if (current.data == data) {
+			break;
+		}else {
+			prev=current;
+			current=current.next;
+		}
+	}
+	// delete
+	if(current!=null) {
+		prev.next=current.next;
+		current.next=null;
+	}
 	
 }
 

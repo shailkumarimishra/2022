@@ -11,13 +11,15 @@ public class TestSLL {
 		sll.add(50);
 		sll.display();
 		System.out.println();
-		sll.addFirst(60);
-		sll.display();
-		System.out.println();
-		sll.addLast(70);
-		sll.display();
-		System.out.println();
-		sll.add(1, 90);
+//		sll.addFirst(60);
+//		sll.display();
+//		System.out.println();
+//		sll.addLast(70);
+//		sll.display();
+//		System.out.println();
+//		sll.add(1, 90);
+//		sll.display();
+		sll.delete(10);
 		sll.display();
 	}
 
