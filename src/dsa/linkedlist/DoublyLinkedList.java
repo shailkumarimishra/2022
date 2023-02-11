@@ -55,6 +55,50 @@ public class DoublyLinkedList {
 		}
 	}
 	
+	public void delete(int data) {
+		//check whether data is present or not
+		int index = contains(data);
+		if (index != -1) {
+			//when only one element is present
+			if (index == 0 && size == 0) {
+				first = null;
+				last = null;
+			} else if (index == 0 && size != 0) {//when data is at index 0 and size>1
+				first = first.next;
+				first.prev.next = null;
+				first.prev = null;
+			} else if (index == size - 1) {//when data is the last element
+				last = last.prev;
+				last.next.prev = null;
+				last.next = null;
+			} else {
+				Node temp = first;
+				for (int i = 0; i < index; i++) {
+					temp = temp.next;
+				}
+				temp.prev.next = temp.next;
+				temp.next.prev = temp.prev;
+				temp.prev = null;
+				temp.next = null;
+			}
+			size--;
+		}
+	}
+	
+	//if data is not present it returns -1 else return the index at which data is present.
+	public int contains(int data) {
+		Node temp = first;
+		int index = -1;
+		for (int i = 0; i < size; i++) {
+			if (temp.data == data) {
+				index = i;
+				break;
+			}
+			temp = temp.next;
+		}
+		return index;
+	}
+
 	public void display() {
 		Node temp = first;
 		while (temp != null) {
@@ -75,7 +119,7 @@ public class DoublyLinkedList {
 		return size;
 	}
 	
-	class Node {
+	private class Node {
 		Node prev;
 		int data;
 		Node next;

@@ -19,6 +19,12 @@ public class TestDLL {
 //		System.out.println();
 		dll.add(2, 90);
 		dll.display();
+		System.out.println();
+		System.out.println(dll.size());
+		dll.delete(90);
+		dll.display();
+		System.out.println();
+		System.out.println(dll.size());
 	}
 
 }
