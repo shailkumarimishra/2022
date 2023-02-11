@@ -17,8 +17,8 @@ public class TestSLL {
 //		sll.addLast(70);
 //		sll.display();
 //		System.out.println();
-//		sll.add(1, 90);
-//		sll.display();
+		sll.add(1, 90);
+		sll.display();
 		sll.delete(10);
 		sll.display();
 	}

@@ -137,26 +137,20 @@ public class ProblemPractice {
 		
 		//Q8. find maximum consecutive 1's in a given binary array? I/P:-int[] arr= {0,1,1,0,1,0} O/P:- {2}
 		public static int getMaxConsecutiveOne(int[] arr) {
-			int[] temp=new int[arr.length];
-			int count=0;
-			
-			for(int i=0,j=0;i<arr.length;i++) {
-				if(arr[i]==0) {
-					temp[j++]=count;
-					count=0;
-				}else
+			int count = 0;
+			int max = 0;
+
+			for (int i = 0; i < arr.length; i++) {
+				if (arr[i] == 0) {
+					max = count > max ? count : max;
+					count = 0;
+				} else
 					count++;
-				if(i==arr.length-1)
-					temp[j]=count;
+				if (i == arr.length - 1)
+					max = count > max ? count : max;
 			}
-			
-			count=temp[0];
-			for(int i=1;i<temp.length;i++) {
-				if(count<temp[i])
-					count=temp[i];
-			}
-			
-			return count;
+
+			return max;
 		}
 		
 	public static void main(String[] args) {
@@ -196,7 +190,8 @@ public class ProblemPractice {
 		System.out.println();
 		System.out.println("max water= "+getMaxWater(arr7));
 		
-		int[] arr8= {1,0,1,1,1,1,0,1,1};
+//		int[] arr8= {1,0,1,1,1,1,0,1,1};
+		int[] arr8= {0,1,1,0,1,0};
 		System.out.println("count of maximum number of 1= "+getMaxConsecutiveOne(arr8));
 	}
 }
