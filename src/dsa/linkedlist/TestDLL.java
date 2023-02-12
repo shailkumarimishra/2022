@@ -11,20 +11,21 @@ public class TestDLL {
 		dll.add(50);
 		dll.display();
 		System.out.println();
-		dll.reverse();
-		System.out.println();
+//		dll.reverse();
+//		System.out.println();
 		System.out.println(dll.size());
 //		dll.addFirst(80);
 //		dll.display();
 //		System.out.println();
-		dll.add(2, 90);
+//		dll.add(2, 90);
+//		dll.display();
+//		System.out.println();
+//		System.out.println(dll.size());
+		dll.delete(30);
 		dll.display();
 		System.out.println();
 		System.out.println(dll.size());
-		dll.delete(90);
-		dll.display();
-		System.out.println();
-		System.out.println(dll.size());
+		
 	}
 
 }
