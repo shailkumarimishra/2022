@@ -9,7 +9,16 @@ public class TestCDLL {
 		cdll.add(30);
 		cdll.add(40);
 		cdll.add(50);
-		cdll.display();
+		cdll.display2();
+		System.out.println();
+//		cdll.addFirst(100);
+//		cdll.display();
+//		System.out.println();
+//		cdll.add(4, 99);
+//		cdll.display2();
+//		System.out.println();
+		cdll.delete(50);
+		cdll.display2();
 		System.out.println();
 	}
 

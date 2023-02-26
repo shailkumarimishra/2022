@@ -21,7 +21,7 @@ public class TestDLL {
 //		dll.display();
 //		System.out.println();
 //		System.out.println(dll.size());
-		dll.delete(30);
+		dll.delete(90);
 		dll.display();
 		System.out.println();
 		System.out.println(dll.size());

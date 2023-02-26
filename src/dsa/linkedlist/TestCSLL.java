@@ -11,6 +11,15 @@ public class TestCSLL {
 		csll.add(50);
 		csll.display2();
 		System.out.println();
+//		csll.addFirst(100);
+//		csll.display2();
+//		System.out.println();
+//		csll.add(4, 99);
+//		csll.display2();
+//		System.out.println();
+		csll.delete(90);
+		csll.display2();
+		System.out.println();
 	}
 
 }
