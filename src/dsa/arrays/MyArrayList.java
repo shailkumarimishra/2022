@@ -157,4 +157,8 @@ public void display() {
 		System.out.print(this.array[i]+" ");
 	}
 }
+
+public int get(int index) {
+	return this.array[index];
+}
 }
