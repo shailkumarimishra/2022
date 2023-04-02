@@ -42,31 +42,28 @@ public static String infixToPostfix(String str) {
 				char ch = stack.pop();
 				output=output+ch;
 			}
+			stack.pop();
 		}else {// step2.d) if operator -
-			if(!stack.isEmpty()) {// step2.d.1) if stack is not empty-
-				while(!stack.isEmpty()) {
-					if(precedence.containsKey(str.charAt(i))) {
-						int order = precedence.get(str.charAt(i));
-						if(order>precedence.get(stack.peek())) {
-							stack.push(str.charAt(i));
-						}else if(order<precedence.get(stack.peek())) {
-							while(order<precedence.get(stack.peek())) {
-								char ch = stack.pop();
-								output=output+ch;
-							}
-							stack.push(str.charAt(i));
-						}else if(order==precedence.get(stack.peek())) {
-							while(!stack.isEmpty()) {
-								char ch = stack.pop();
-								output=output+ch;
-							}
-						}
+			if ( !stack.isEmpty() && stack.peek() != '(' ) {// step2.d.1) if stack is not empty-
+				int order = precedence.get(str.charAt(i));
+				if ( order > precedence.get(stack.peek()) ) {
+					stack.push(str.charAt(i));
+				} else if ( order < precedence.get(stack.peek()) ) {
+					while ( !stack.isEmpty() && order < precedence.get(stack.peek()) ) {
+						char ch = stack.pop();
+						output = output + ch;
 					}
+					stack.push(str.charAt(i));
+				} else if ( order == precedence.get(stack.peek()) ) {
+					while ( !stack.isEmpty() ) {
+						char ch = stack.pop();
+						output = output + ch;
+						}
 				}
-			}else {// step2.d.2) if stack is  empty push it
+			} else {// step2.d.2) if stack is empty push it
 				stack.push(str.charAt(i));
 			}
-		}
+	}
 	}
 	while(!stack.isEmpty()) {
 		char ch = stack.pop();
@@ -80,7 +77,7 @@ private static boolean isOperand(char ch) {
 }
 
 public static void main(String[] args) {
-	String str="(b/c)";
+	String str="a+(b*(c+a))";
 	String result = infixToPostfix(str);
 	System.out.println(result);
 //	System.out.println(isOperand('+'));
