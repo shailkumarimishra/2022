@@ -82,6 +82,25 @@ public static void levelOrder(Node root) {
 	}
 }
 
+public static void levelOrderByLine(Node root) {
+	Queue<Node> queue = new LinkedList<>();
+	queue.add(root);
+	while(!queue.isEmpty()) {
+		int size = queue.size();
+		for (int i = 0; i < size; i++) {
+			Node node = queue.poll();
+			System.out.print(node.key + " ");
+			if (node.left != null) {
+				queue.add(node.left);
+			}
+			if (node.right != null) {
+				queue.add(node.right);
+			}
+		}
+		System.out.println();
+	}
+}
+
 public static void main(String[] args) {
 	Node root = new Node(30);
 	root.left = new Node(40);
@@ -100,5 +119,7 @@ public static void main(String[] args) {
 	printKDistanceNodes(root, 2);
 	System.out.println();
 	levelOrder(root);
+	System.out.println();
+	levelOrderByLine(root);
 }
 }
