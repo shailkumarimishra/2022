@@ -12,13 +12,26 @@ public class BinaryTreeTest {
 		bt.insert(80);
 		bt.levelOrder();
 		System.out.println();
-		bt.preOrder(bt.getRoot());
+//		bt.preOrder(bt.getRoot());
+//		System.out.println();
+//		bt.postOrder(bt.getRoot());
+//		System.out.println();
+//		bt.inOrder(bt.getRoot());
+//		System.out.println();
+//		System.out.println(bt.search(80));
+//		bt.printLeafNodes();
+//		System.out.println();
+//		System.out.println(bt.size());
+//		System.out.println(bt.height());
+		bt.delete(30);
+		bt.levelOrder();
 		System.out.println();
-		bt.postOrder(bt.getRoot());
+		bt.printAllLeafNodes();
 		System.out.println();
-		bt.inOrder(bt.getRoot());
-		System.out.println();
-		System.out.println(bt.search(80));
+		bt.delete(40);
+		bt.levelOrder();
+		
+		
 	}
 
 }

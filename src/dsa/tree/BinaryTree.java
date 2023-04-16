@@ -5,11 +5,13 @@ import java.util.Queue;
 
 public class BinaryTree {
 	private Node root;
+	private int size;
 	
 	public void insert(int data) {
 		Node newNode = new Node(data, null, null);
 		if(root==null) {
 			root = newNode;
+			size++;
 			return;
 		}
 		Queue<Node> queue = new LinkedList<>();
@@ -28,7 +30,7 @@ public class BinaryTree {
 			}
 			
 		}
-		
+		size++;
 	}
 	
 	public void preOrder(Node root) {
@@ -94,33 +96,107 @@ public class BinaryTree {
 		return false;
 	}
 	
-	public int delete(int data) {
-		//Todo
-		return -1;
+	public boolean delete(int data) {
+		Queue<Node> queue = new LinkedList<>();
+		queue.add(root);
+		while(!queue.isEmpty()) {
+			Node currentNode = queue.poll();
+			if(currentNode.data==data) {
+				//fetch leaf node
+				Node leafNode = lastLeafNode();
+				//copy leaf node data to current node data
+				currentNode.data = leafNode.data;
+				//delete leaf node
+				deleteLastLeafNode();
+				return true;
+			}
+			if(currentNode.left!=null)
+				queue.add(currentNode.left);
+			if(currentNode.right!=null)
+				queue.add(currentNode.right);
+		}
+		return false;
 	}
 	
-	public void printLeafNodes() {
-		//Todo
+	/**
+	 * Note:- 
+	 * 		 1. if left node is not null of current node but right node is null then last leaf node is currentNode.left
+	 * 		 2. if left & right node of current node is null then last leaf node is right node of previous node.
+	 */
+	private void deleteLastLeafNode() {
+		Queue<Node> queue = new LinkedList<>();
+		queue.add(root);
+		Node prevNode=null;
+		Node currentNode=null;
+		while(!queue.isEmpty()) {
+			prevNode = currentNode;
+			currentNode = queue.poll();
+			if(currentNode.left==null) {
+				prevNode.right=null;
+				return;
+			}else if(currentNode.right==null) {
+				currentNode.left=null;
+				return;
+			}
+			queue.add(currentNode.left);
+			queue.add(currentNode.right);
+			
+		}
+	}
+	public void printAllLeafNodes() {
+		Queue<Node> queue = new LinkedList<>();
+		queue.add(root);
+		while(!queue.isEmpty()) {
+			Node node = queue.poll();
+			if(node.left!=null)
+				queue.add(node.left);
+			if(node.right!=null)
+				queue.add(node.right);
+			if(node.left==null && node.right==null)
+				System.out.print(node.data+" ");
+			
+		}
+	}
+	
+	private Node lastLeafNode() {
+		Queue<Node> queue = new LinkedList<>();
+		queue.add(root);
+		Node currentNode = null;
+		while(!queue.isEmpty()) {
+			currentNode = queue.poll();
+			if(currentNode.left!=null)
+				queue.add(currentNode.left);
+			if(currentNode.right!=null)
+				queue.add(currentNode.right);
+		}
+		return currentNode;
 	}
 	
 	public void deleteAll() {
-		//Todo
+		root = null;
+		size = 0;
 	}
 	
 	public int size() {
-		//Todo
-		return -1;
+		return size;
 	}
 	
 	public int height() {
-		//Todo
+		return getHeight(root);
+	}
+	
+	private int getHeight(Node root) {
+		if(root==null)
+			return 0;
+		
+		return Math.max(getHeight(root.left), getHeight(root.right))+1;
+	}
+
+	public int deleteLeaf() {
+		
 		return -1;
 	}
 	
-	public int deleteLeaf() {
-		//Todo
-		return -1;
-	}
 private class Node{
 	int data;
 	Node left;
