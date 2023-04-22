@@ -30,6 +30,30 @@ public static void levelOrder(Node root) {
 	}
 }
 
+public static void preOrder(Node root) {
+	if(root==null)
+		return;
+	System.out.print(root.data+" ");
+	preOrder(root.left);
+	preOrder(root.right);
+}
+
+public static void postOrder(Node root) {
+	if(root==null)
+		return;
+	postOrder(root.left);
+	postOrder(root.right);
+	System.out.print(root.data+" ");
+}
+
+public static void inOrder(Node root) {
+	if(root==null)
+		return;
+	inOrder(root.left);
+	System.out.print(root.data+" ");
+	inOrder(root.right);
+}
+
 public static boolean search(int data,Node root) {
 	if(root==null)
 		return false;
@@ -51,7 +75,13 @@ public static void main(String[] args) {
 	root.right.right = new Node(18);
 	levelOrder(root);
 	System.out.println();
-	System.out.println(search(20, root));
+//	System.out.println(search(20, root));
+	preOrder(root);
+	System.out.println();
+	postOrder(root);
+	System.out.println();
+	inOrder(root);// In BST inorder traversal produce sorted nodes
+	
 }
 
 }
